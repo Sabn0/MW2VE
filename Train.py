@@ -22,7 +22,6 @@ def train(
     _xavier = np.sqrt(6 / sum(mat_shape))
     E = np.random.uniform(-_xavier, _xavier, mat_shape)           # targets
     E_tag = np.random.uniform(-_xavier, _xavier, mat_shape)       # contexts
-    words = list(w2i.keys())
 
     for i in range(max_iter):
         print(i)
@@ -32,27 +31,14 @@ def train(
             if word not in w2i or context not in w2i:
                 continue
 
-            w = E[w2i[word]]
-            c = E_tag[w2i[context]]
-
-            rnd_w = np.random.choice(words)
-            r = E_tag[w2i[rnd_w]]
-
-            _loss, (dw, dc, dr) = model.computeLossAndGrads(w, c, r)
+            params = (E, E_tag, word, context)
+            _loss, (dw, dc, dr) = model.computeLossAndGrads(params)
             loss += _loss
             count += 1
 
-            #####
-            D = np.zeros(mat_shape)
-            D_tag = np.zeros(mat_shape)
-            D[w2i[word], :] = dw
-            D_tag[w2i[context], :] = dc
-            D_tag[w2i[rnd_w], :] = dr
-            #####
-
-            E -= learning_rate*D
-            E_tag -= learning_rate*D_tag
-
+            E -= learning_rate * dw
+            E_tag -= learning_rate * dc
+            E_tag -= learning_rate * dr
 
         print(loss/count)
 
@@ -66,14 +52,14 @@ def main():
     window = 3
     max_iter = 100
     learning_rate = 0.01
-    embedding_dim = 300
-    max_vocab_size = int(1e04)
-    model = BaseW2VModel()
+    embedding_dim = 100
+    max_vocab_size = int(1e03)
 
     sentences = readLines(args.Sentences)
     sentences = sentences[:1000]
     w2i, i2w = getWords(sentences, vocab_size=max_vocab_size)
     print("vocab size: {}".format(len(w2i)))
+    model = BaseW2VModel(w2i)
 
     train(
         sentences=sentences,
