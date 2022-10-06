@@ -1,10 +1,8 @@
 
 # import packages
 import numpy as np
-from typing import *
-from Modules.SkipGramsModel import SkipGramsModel
-from Modules.BaseW2VModel import BaseW2VModel
-from CreateData import makeExamples, readLines, getWords
+from Modules.NS_SkipGrams_w2vModel import w2vModel
+from CreateData import sampleExamples, readLines, getWords
 import argparse
 
 def train(
@@ -13,25 +11,24 @@ def train(
         learning_rate: float,
         embedding_dim: int,
         w2i: dict,
+        w2prob: dict,
         window: int,
-        model: BaseW2VModel
-):
+        model: w2vModel
+) -> tuple:
 
     # initialize random matrices
     mat_shape = (len(w2i), embedding_dim)
-    _xavier = np.sqrt(6 / sum(mat_shape))
-    E = np.random.uniform(-_xavier, _xavier, mat_shape)           # targets
-    E_tag = np.random.uniform(-_xavier, _xavier, mat_shape)       # contexts
+    E = np.random.uniform(-0.5, 0.5, mat_shape) / embedding_dim           # targets
+    E_tag = np.random.uniform(-0.5, 0.5, mat_shape) / embedding_dim       # contexts
 
     for i in range(max_iter):
         print(i)
+        #print(np.sum(E))
+        #print(np.sum(E_tag))
         count = loss = 0
-        for (word, context) in makeExamples(sentences, window=window):
+        for (word, context, rnd_word) in sampleExamples(sentences, w2prob=w2prob, window=window):
 
-            if word not in w2i or context not in w2i:
-                continue
-
-            params = (E, E_tag, word, context)
+            params = (E, E_tag, word, context, rnd_word)
             _loss, (dw, dc, dr) = model.computeLossAndGrads(params)
             loss += _loss
             count += 1
@@ -40,9 +37,13 @@ def train(
             E_tag -= learning_rate * dc
             E_tag -= learning_rate * dr
 
-        print(loss/count)
+        a = np.linalg.norm(E[w2i['young']])
+        b = np.linalg.norm(E[w2i['children']])
+        c = np.dot(E[w2i['young']],E[w2i['children']])
+        print("similairty berween young and children: {}".format(c/(a*b)))
+        print("epoch loss: {}".format(loss/count))
 
-
+    return E, E_tag
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -52,24 +53,29 @@ def main():
     window = 3
     max_iter = 100
     learning_rate = 0.01
-    embedding_dim = 100
-    max_vocab_size = int(1e03)
+    embedding_dim = 50
+    max_vocab_size = int(1e04)
+    alpha_smooth = 0.75
+    min_freq = 5
 
     sentences = readLines(args.Sentences)
-    sentences = sentences[:1000]
-    w2i, i2w = getWords(sentences, vocab_size=max_vocab_size)
+    sentences = sentences[:10000]
+    w2i, i2w, w2prob = getWords(sentences, vocab_size=max_vocab_size, min_freq=min_freq, alpha_smooth=alpha_smooth)
     print("vocab size: {}".format(len(w2i)))
-    model = BaseW2VModel(w2i)
+    model = w2vModel(w2i)
 
-    train(
+    E, E_tag = train(
         sentences=sentences,
         embedding_dim=embedding_dim,
         max_iter=max_iter,
         learning_rate=learning_rate,
         model=model,
         window=window,
-        w2i=w2i
+        w2i=w2i,
+        w2prob=w2prob
     )
+
+    print()
 
 
 
