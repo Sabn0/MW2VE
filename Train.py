@@ -23,8 +23,6 @@ def train(
 
     for i in range(max_iter):
         print(i)
-        #print(np.sum(E))
-        #print(np.sum(E_tag))
         count = loss = 0
         for (word, context, rnd_word) in sampleExamples(sentences, w2prob=w2prob, window=window):
 
@@ -40,10 +38,11 @@ def train(
         a = np.linalg.norm(E[w2i['young']])
         b = np.linalg.norm(E[w2i['children']])
         c = np.dot(E[w2i['young']],E[w2i['children']])
-        print("similairty berween young and children: {}".format(c/(a*b)))
+        print("similairty between young and children: {}".format(c/(a*b)))
         print("epoch loss: {}".format(loss/count))
 
     return E, E_tag
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -51,16 +50,16 @@ def main():
     args = parser.parse_args()
 
     window = 3
-    max_iter = 100
+    max_iter = 10
     learning_rate = 0.01
     embedding_dim = 50
     max_vocab_size = int(1e04)
     alpha_smooth = 0.75
-    min_freq = 5
+    min_freq = 10
 
     sentences = readLines(args.Sentences)
-    sentences = sentences[:10000]
-    w2i, i2w, w2prob = getWords(sentences, vocab_size=max_vocab_size, min_freq=min_freq, alpha_smooth=alpha_smooth)
+    sentences = sentences[:2000]
+    w2i, words, w2prob = getWords(sentences, vocab_size=max_vocab_size, min_freq=min_freq, alpha_smooth=alpha_smooth)
     print("vocab size: {}".format(len(w2i)))
     model = w2vModel(w2i)
 
@@ -75,8 +74,10 @@ def main():
         w2prob=w2prob
     )
 
-    print()
-
+    # save matrices
+    np.save('words.npy', words)
+    np.save('words_v.npy', E)
+    np.save('contexts_v.npy', E_tag)
 
 
 if __name__ == "__main__":
