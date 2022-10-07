@@ -19,16 +19,23 @@ def getWords(sentences: list, vocab_size: int, min_freq: int, alpha_smooth: floa
     return w2i, words, w2prob
 
 
-def sampleExamples(sentences: list, w2prob: dict, window: int):
+def sampleExamples(sentences: list, w2prob: dict, window: int, K_down_sample: int):
     assert window > 0 , "invalid window size {}".format(window)
+    down_sample_prob = list(w2prob.values())[100]
     vocab_words, probs = list(w2prob.keys()), list(w2prob.values())
     for j, sentence in enumerate(sentences):
         words = sentence.strip().split()
         for i in range(window, len(words)-window):
+
+            # down-sampling: skip frequent words half of the time
+            word = words[i]
+            if word not in vocab_words or (w2prob[word] >= down_sample_prob and np.random.choice(a=[0,1], p=[0.5, 0.5])):
+                continue
+
+            # sample contexts
             rng = list(range(i-window, i)) + list(range(i+1, i+window+1))
             context = words[np.random.choice(rng)]
             rnd_word = np.random.choice(a=vocab_words, p=probs)
-            word = words[i]
-            if any(w not in vocab_words for w in [word, context, rnd_word]):
+            if any(w not in vocab_words for w in [context, rnd_word]):
                 continue
-            yield word, context, rnd_word
+            yield j, word, context, rnd_word
