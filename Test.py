@@ -63,7 +63,7 @@ def main():
     args = parser.parse_args()
 
     # hyper params
-    targets = ['Speaker', 'number', 'language', 'number']
+    targets = ['spoke', 'number']
     K = 10
     N_words_plot = 100
 
