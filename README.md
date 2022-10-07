@@ -16,9 +16,9 @@ Run the Test.py script supplied with 3 npy files (output of the Train.py script)
 ```
 python Test.py -w=PATH_TO_WORDS -c=PATH_TO_WORD_VECTORS -c=PATH_TO_CONTEXT_VECTORS -o=PATH_TO_OUTPUT
 ```
-The program will print the 10 most similar word to some hard-coded target words, and save a 2dim projection using PCA of the matrices sum.\
+The program will print the 10 most similar word to some hard-coded target words, and save a 2dim projection using PCA of the matrices sum.
 
 ## Example
-When trained+tested on some wiki sentences for several epochs, with toy parameters (embedding=20, vocab size=1K, window=5):\
+When trained+tested on some wiki sentences for several epochs, with toy parameters (embedding=20, vocab size=1K, window=5):
 
 
