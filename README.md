@@ -33,7 +33,7 @@ When trained+tested on some wiki sentences for several epochs, with toy paramete
 | former          | spoke         |
 | finance          | coming         |
 
-<a href="url"><img src="https://user-images.githubusercontent.com/45892555/194540533-ae99a383-508d-4eda-9fba-e4e1d2471715.png" align="left" height="200" width="200" ></a>
+<a href="url"><img src="https://user-images.githubusercontent.com/45892555/194540533-ae99a383-508d-4eda-9fba-e4e1d2471715.png" align="left" height="210" width="390" ></a>
 
 
 
