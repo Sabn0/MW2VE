@@ -20,6 +20,8 @@ The program will print the 10 most similar word to some hard-coded target words,
 ## Example
 When trained+tested on some wiki sentences for several epochs, with toy parameters (embedding=20, vocab size=1K, window=5):
 
+<a href="url"><img src="https://user-images.githubusercontent.com/45892555/194540533-ae99a383-508d-4eda-9fba-e4e1d2471715.png" align="left" height="420" width="780" ></a>
+
 | spoke     | number      |
 | ------------- | ------------- |
 | spoke          | number         |
@@ -32,8 +34,5 @@ When trained+tested on some wiki sentences for several epochs, with toy paramete
 | seen          | area         |
 | former          | spoke         |
 | finance          | coming         |
-
-<a href="url"><img src="https://user-images.githubusercontent.com/45892555/194540533-ae99a383-508d-4eda-9fba-e4e1d2471715.png" align="left" height="420" width="780" ></a>
-
 
 
