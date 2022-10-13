@@ -1,6 +1,6 @@
 # MW2VE
 A self learning experience with w2v. The program creates word vectors with skip-grams and negative sampling. \
-Implenetation based on the [original paper](https://arxiv.org/abs/1301.3781), and [this following paper](https://arxiv.org/abs/1402.3722).
+Implenetation based on the details in the [original paper](https://arxiv.org/abs/1301.3781), and [this following paper](https://arxiv.org/abs/1402.3722).
 
 ## How to train
 Run the Train.py script supplied with a sentences file (plain text with sentences).
