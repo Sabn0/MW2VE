@@ -20,22 +20,9 @@ The program will print the 10 most similar word to some hard-coded target words,
 ## Example
 When trained+tested on some wiki sentences for several epochs, with toy parameters (embedding=20, vocab size=1K, window=5):
 
-| spoke     | number   |
-| ----------| -------- |
-| **spoke** | number   |
-
-| spoke     | number      |
-| ------------- | ------------- |
-| spoke          | number         |
-| campaign          | two         |
-| number          | whose         |
-| sitting          | office         |
-| Chamber          | group         |
-| NDP          | many         |
-| just          | rates         |
-| seen          | area         |
-| former          | spoke         |
-| finance          | coming         |
+| number    | two      |  whose  |  office  | group  | many | rates | area | spoke | coming |
+| ----------| -------- | ------  | -------- | ------ | ---- | ---- | ----- | ------ | ----- |
+| **spoke** | campaign | number | sitting | Chamber | NDP | just | seen | former | finance |
 
 
 <a href="url"><img src="https://user-images.githubusercontent.com/45892555/194540533-ae99a383-508d-4eda-9fba-e4e1d2471715.png" align="left" height="420" width="780" ></a>
