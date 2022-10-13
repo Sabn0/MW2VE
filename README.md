@@ -1,4 +1,4 @@
-# MW2VE - English word2vec
+# MW2VE
 A self learning experience with w2v. The program creates word vectors with skip-grams and negative sampling. \
 Implenetation based on the original paper by [Mikolov et al., 2013](https://arxiv.org/abs/1301.3781), and a following paper by [Goldberg and Levy, 2014](https://arxiv.org/abs/1402.3722).
 
