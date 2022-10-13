@@ -20,6 +20,9 @@ The program will print the 10 most similar word to some hard-coded target words,
 ## Example
 When trained+tested on some wiki sentences for several epochs, with toy parameters (embedding=20, vocab size=1K, window=5):
 
+| spoke     | number      |
+| ------------- | ------------- |
+| **spoke**          | number       |
 
 | spoke     | number      |
 | ------------- | ------------- |
