@@ -21,7 +21,6 @@ The program will print the 10 most similar word to some hard-coded target words,
 When trained+tested on some wiki sentences for several epochs, with toy parameters (embedding=20, vocab size=1K, window=5):
 
 |     | |    |    |   |  |  |  |  |  |
-| ----------| -------- | ------  | -------- | ------ | ---- | ---- | ----- | ------ | ----- |
 | **spoke** | campaign | number | sitting | Chamber | NDP | just | seen | former | finance |
 | **number**    | two      |  whose  |  office  | group  | many | rates | area | spoke | coming |
 
