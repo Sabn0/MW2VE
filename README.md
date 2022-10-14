@@ -1,6 +1,6 @@
 # MW2VE
-A self learning experience with w2v. The program creates word vectors with skip-grams and negative sampling. \
-Implenetation based on the details in the [original paper](https://arxiv.org/abs/1301.3781), and [this following paper](https://arxiv.org/abs/1402.3722).
+A self-learning experience with w2v. Creation of word vectors using skip-grams and negative sampling. \
+Implenetation based on the [original paper](https://arxiv.org/abs/1301.3781), and [this following paper](https://arxiv.org/abs/1402.3722).
 
 ## How to train
 Run the Train.py script supplied with a sentences file (plain text with sentences).
@@ -18,13 +18,10 @@ python Test.py -w=PATH_TO_WORDS -c=PATH_TO_WORD_VECTORS -c=PATH_TO_CONTEXT_VECTO
 The program will print the 10 most similar word to some hard-coded target words, and save a 2dim projection using PCA of the matrices sum.
 
 ## Example
-When trained+tested on some wiki sentences for several epochs, with toy parameters (embedding=20, vocab size=1K, window=5):
+When trained+tested on a sample of sentences from PennTreebank (loaded from torchtext) with toy parameters (embedding=20, vocab size=500, window=5):
 
-|     | |    |    |   |  |  |  |  |  |
-| ----------| -------- | ------  | -------- | ------ | ---- | ---- | ----- | ------ | ----- |
-| **spoke** | campaign | number | sitting | Chamber | NDP | just | seen | former | finance |
-| **number**    | two      |  whose  |  office  | group  | many | rates | area | spoke | coming |
-
-
-<a href="url"><img src="https://user-images.githubusercontent.com/45892555/194540533-ae99a383-508d-4eda-9fba-e4e1d2471715.png" align="left" height="420" width="780" ></a>
-
+|     | |    |    |   |
+| ----------| -------- | ------  | -------- |
+| **credit** | cash | stock | contracts | technology |
+| **street**    | state   |  off  |  government  | committee |
+| **people**    | around   |  office  |  employees  | him |
