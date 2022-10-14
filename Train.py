@@ -16,24 +16,27 @@ def train(
         window: int,
         model: w2vModel,
         k_down: int,
-        uniform_choice=0.5
+        uniform_choice=0.05
 ) -> tuple:
 
     # initialize random matrices
     mat_shape = (len(w2i), embedding_dim)
-    E = np.random.uniform(-uniform_choice, uniform_choice, mat_shape) / embedding_dim           # targets
-    E_tag = np.random.uniform(-uniform_choice, uniform_choice, mat_shape) / embedding_dim       # contexts
+    x = np.sqrt(6/(np.sum(mat_shape)))
+    E = np.random.uniform(-x,x, mat_shape)
+    E_tag = np.random.uniform(-x, x, mat_shape)
 
     # history
     loss_train = []
     lr_changed = False
     this_time = time.time()
 
+    # draw examples
+    triples = sampleExamples(sentences, w2prob=w2prob, window=window, K_down_sample=k_down)
+
     for i in range(max_iter):
         print("epoch {}".format(i))
         count = loss = 0
-        for (sen_id, word, context, rnd_word) in sampleExamples(sentences, w2prob=w2prob, window=window, K_down_sample=k_down):
-
+        for (word, context, rnd_word) in triples:
             params = (E, E_tag, word, context, rnd_word)
             _loss, (dw, dc, dr) = model.computeLossAndGrads(params)
             loss += _loss
@@ -69,13 +72,13 @@ def main():
     args = parser.parse_args()
 
     window = 5
-    max_iter = 100
+    max_iter = 50
     learning_rate = 0.1
     embedding_dim = 20
-    max_vocab_size = int(1e03)
+    max_vocab_size = int(5e02)
     alpha_smooth = 0.75
-    min_freq = 10
-    N_sentences = int(2e04)
+    min_freq = 5
+    N_sentences = int(1e04)
 
     sentences = readLines(args.Sentences)[:N_sentences]
     w2i, words, w2prob = getWords(sentences, vocab_size=max_vocab_size, min_freq=min_freq, alpha_smooth=alpha_smooth)

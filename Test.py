@@ -63,9 +63,9 @@ def main():
     args = parser.parse_args()
 
     # hyper params
-    targets = ['spoke', 'number']
+    targets = ['credit', 'street', 'people']
     K = 10
-    N_words_plot = 100
+    N_words_plot = 75
 
     words = np.load(args.WordsMatrix)
     word_vectors = np.load(args.VectorsMatrix)
@@ -81,7 +81,7 @@ def main():
         for vector_type, vector in {'words': word_vectors}.items():
             print("using vector type: {}".format(vector_type))
             sims = getSimilarWords(words=words, vectors=vector, target_vector=target_vector, K=K)
-            for (sim_word, score) in sims:
+            for (sim_word, score) in sims[1:]:
                 print("similar word: {}, score: {}".format(sim_word, score))
 
     # plot PCA 2d for words
