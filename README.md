@@ -20,7 +20,7 @@ The program will print the 10 most similar word to some hard-coded target words,
 ## Example
 When trained+tested on a sample of sentences from PennTreebank (loaded from torchtext) with toy parameters (embedding=20, vocab size=500, window=5):
 
-|     | |    |    |   |
+|     | |    |    |
 | ----------| -------- | ------  | -------- |
 | **credit** | cash | stock | contracts | technology |
 | **street**    | state   |  off  |  government  | committee |
