@@ -1,7 +1,8 @@
 
 # import packages
-from collections import defaultdict, Counter
+from collections import Counter
 import numpy as np
+
 
 def readLines(file_name: str):
     with open(file_name, 'r') as f:

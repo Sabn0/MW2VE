@@ -6,6 +6,7 @@ from CreateData import sampleExamples, readLines, getWords
 import argparse
 import time
 
+
 def train(
         sentences: list,
         max_iter: int,
@@ -15,8 +16,7 @@ def train(
         w2prob: dict,
         window: int,
         model: w2vModel,
-        k_down: int,
-        uniform_choice=0.05
+        k_down: int
 ) -> tuple:
 
     # initialize random matrices
@@ -69,6 +69,7 @@ def train(
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('-s', '--Sentences', required=True, type=str, help='path to sentences file')
+    parser.add_argument('-a', '--Save', default=1, type=int, help='binary to save')
     args = parser.parse_args()
 
     window = 5
@@ -99,13 +100,14 @@ def main():
     )
 
     # save matrices
-    dir_name = 'Results'
-    import os
-    if not os.path.exists(dir_name):
-        os.mkdir(dir_name)
-    np.save(os.path.join(dir_name, 'words.npy'), words)
-    np.save(os.path.join(dir_name, 'words_v.npy'), E)
-    np.save(os.path.join(dir_name, 'contexts_v.npy'), E_tag)
+    if args.Save:
+        dir_name = 'Results'
+        import os
+        if not os.path.exists(dir_name):
+            os.mkdir(dir_name)
+        np.save(os.path.join(dir_name, 'words.npy'), words)
+        np.save(os.path.join(dir_name, 'words_v.npy'), E)
+        np.save(os.path.join(dir_name, 'contexts_v.npy'), E_tag)
 
 
 if __name__ == "__main__":

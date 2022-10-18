@@ -4,7 +4,7 @@ import numpy as np
 import argparse
 from scipy import linalg as LA
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import normalize, MinMaxScaler
+
 
 def normalizeRows(W: np.ndarray) -> np.ndarray:
     norms = np.linalg.norm(W, axis=1)
